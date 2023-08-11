@@ -1,0 +1,69 @@
+/* Reset default margin and padding */
+body, h1, p {
+    text-align: center;
+    margin: 30;
+    padding: 30;
+}
+
+/* Add background image */
+body {
+    background-image: url("/Users/autophile/Desktop/WeatherApp/static/1.jpeg"); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+}
+
+/* Center the content vertically and horizontally */
+.body-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
+
+/* Style the title */
+.title-container {
+    text-align: center;
+    margin-top: 80px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 46px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/* Style the container */
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-width: 600px;
+}
+
+/* Style the weather information */
+.weather-info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style the strong tags */
+strong {
+    font-weight: bold;
+}
+
+/* Add some spacing between the data points */
+p + p {
+    margin-top: 10px;
+}
+

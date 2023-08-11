@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Charts Library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(drawCharts);
+      
+        function drawCharts() {
+          // Line Chart
+          var lineData = new google.visualization.DataTable();
+          lineData.addColumn('string', 'Time');
+          lineData.addColumn('number', 'Temperature (°C)');
+          lineData.addColumn('number', 'Humidity (%)');
+          lineData.addColumn('number', 'Wind Speed (m/s)');
+
+          // Fetch live data from API
+          var api_key = "04f2d2e4949cb5fa07abad0c1dbdb0f7";
+          var latitude = 44.3894;
+          var longitude = -79.6903;
+          var url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${api_key}`;
+          
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              // Process data and add rows to lineData
+              var time = new Date().toLocaleTimeString();
+              var temperature = data.main.temp;
+              var humidity = data.main.humidity;
+              var windSpeed = data.wind.speed;
+              lineData.addRow([time, temperature, humidity, windSpeed]);
+
+              var lineOptions = {
+                title: 'Weather Visualization',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+              };
+
+              var lineChart = new google.visualization.LineChart(document.getElementById('weatherChart'));
+              lineChart.draw(lineData, lineOptions);
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
+
+          // Bar Chart
+          var barData = new google.visualization.DataTable();
+          barData.addColumn('string', 'Time');
+          barData.addColumn('number', 'Temperature (°C)');
+
+          fetch(url)
+            .then(response => response.json())
+            .then(data => {
+              // Process data and add rows to barData
+              var time = new Date().toLocaleTimeString();
+              var temperature = data.main.temp;
+              barData.addRow([time, temperature]);
+
+              var barOptions = {
+                title: 'Temperature Chart',
+                hAxis: { title: 'Time' },
+                vAxis: { title: 'Temperature (°C)' },
+                legend: { position: 'none' }
+              };
+
+              var barChart = new google.visualization.BarChart(document.getElementById('temperatureChart'));
+              barChart.draw(barData, barOptions);
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="weatherChart"></div>
+    <div id="temperatureChart"></div>
+</body>
+</html>
